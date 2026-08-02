@@ -1,0 +1,24 @@
+# Overlay that swaps the locally-built backend/frontend images for the ones published to
+# GitHub Container Registry (see .github/workflows/docker-publish.yml), so self-hosters can run
+# tap without a local build step:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.images.yml up -d
+#
+# TAP_IMAGE_TAG defaults to "latest" (the most recent stable release); set it to "edge" in .env
+# to track the latest main branch build instead, or to a specific version (e.g. "v0.2.0").
+services:
+  backend:
+    build: !reset null
+    image: ghcr.io/peppe37/tap-backend:${TAP_IMAGE_TAG:-latest}
+
+  worker:
+    build: !reset null
+    image: ghcr.io/peppe37/tap-backend:${TAP_IMAGE_TAG:-latest}
+
+  beat:
+    build: !reset null
+    image: ghcr.io/peppe37/tap-backend:${TAP_IMAGE_TAG:-latest}
+
+  frontend:
+    build: !reset null
+    image: ghcr.io/peppe37/tap-frontend:${TAP_IMAGE_TAG:-latest}

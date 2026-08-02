@@ -55,6 +55,11 @@ docker compose up --build
 The backend container runs database migrations and seeds the carrier/shop/provider catalogue
 automatically on startup — there is nothing else to set up.
 
+Prefer not to build locally? Pre-built images are published to GitHub Container Registry on every
+release (`ghcr.io/peppe37/tap-backend`, `ghcr.io/peppe37/tap-frontend`, both multi-arch:
+amd64/arm64) — see [Self-hosting](https://Peppe37.github.io/tap/self-hosting/#using-pre-built-images)
+for the one-line `docker compose` override that uses them instead.
+
 ### Local development
 
 Backend (Python 3.12, PostgreSQL, Redis required):

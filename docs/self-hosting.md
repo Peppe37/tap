@@ -44,6 +44,21 @@ The backend container runs database migrations (`alembic upgrade head`) and seed
 carrier/shop/provider catalogue on every startup, so a fresh instance is ready to use as soon as
 the containers report healthy.
 
+## Using pre-built images
+
+`docker compose up --build` builds the backend and frontend images locally, which works
+everywhere but takes a minute on first run. As an alternative, every release publishes multi-arch
+(amd64/arm64) images to GitHub Container Registry -- `ghcr.io/peppe37/tap-backend` and
+`ghcr.io/peppe37/tap-frontend` -- and pushes to `main` also publish a rolling `edge` tag. Use them
+instead of building by layering `docker-compose.images.yml` on top:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.images.yml up -d
+```
+
+Set `TAP_IMAGE_TAG` in `.env` to pin a specific version (e.g. `v0.2.0`) or track `edge`; it
+defaults to `latest` (the most recent stable release).
+
 ## First run
 
 Opening the frontend for the first time shows a **"Create the administrator account"** screen

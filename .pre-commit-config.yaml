@@ -5,6 +5,10 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+        # --unsafe: skips resolving custom tags (e.g. docker-compose.images.yml's `!reset`,
+        # a Compose-specific merge directive, not a PyYAML-standard one) instead of erroring on
+        # them; still catches real syntax errors and duplicate keys.
+        args: [--unsafe]
       - id: check-merge-conflict
       - id: check-added-large-files
       - id: detect-private-key

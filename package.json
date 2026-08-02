@@ -1,0 +1,13 @@
+{
+  "name": "tap",
+  "private": true,
+  "version": "0.0.0-development",
+  "description": "tap (Track All Packs) - self-hosted, open-source multi-carrier package tracking platform",
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "semantic-release": "^24.2.0"
+  }
+}

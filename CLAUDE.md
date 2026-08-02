@@ -4,7 +4,7 @@ Instructions for Claude Code (and any other agent) working in this repository.
 
 ## What this project is
 
-tap ("Track All Packs") is an open source, self-hosted, multi-carrier package tracking platform.
+tap ("Track All Parcels") is an open source, self-hosted, multi-carrier package tracking platform.
 Backend: Python/FastAPI + SQLAlchemy 2.0 async + PostgreSQL + Celery/Redis. Frontend: React +
 TypeScript + Vite + TanStack Query + Tailwind CSS. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 for the full design and [docs/ADDING_A_PROVIDER.md](docs/ADDING_A_PROVIDER.md) before touching a

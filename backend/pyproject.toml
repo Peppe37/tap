@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "tap-backend"
 version = "0.1.0"
-description = "tap (Track All Packs) backend - self-hosted multi-carrier package tracking"
+description = "tap (Track All Parcels) backend - self-hosted multi-carrier package tracking"
 license = { text = "MIT" }
 requires-python = ">=3.12"
 dependencies = [

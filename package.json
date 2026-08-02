@@ -2,7 +2,7 @@
   "name": "tap",
   "private": true,
   "version": "0.0.0-development",
-  "description": "tap (Track All Packs) - self-hosted, open-source multi-carrier package tracking platform",
+  "description": "tap (Track All Parcels) - self-hosted, open-source multi-carrier package tracking platform",
   "license": "MIT",
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",

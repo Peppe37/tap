@@ -1,4 +1,4 @@
-# tap — Track All Packs
+# tap — Track All Parcels
 
 An open source, self-hosted platform for tracking packages across multiple carriers and
 marketplaces — InPost, Poste Italiane, BRT, GLS, and any carrier covered by a third-party

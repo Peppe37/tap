@@ -1,0 +1,78 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Catch newly disclosed CVEs in dependencies even when nobody is actively pushing code.
+    - cron: "0 6 * * 1"
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-audit:
+    name: Python dependency & static security audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend package with dev dependencies
+        run: pip install -e ".[dev]"
+
+      - name: pip-audit (known-vulnerable dependencies)
+        # Audit the project's declared dependencies (resolved from pyproject.toml), not the whole
+        # ambient environment -- the latter would also flag pip/setuptools themselves as "direct"
+        # dependencies, which they aren't.
+        run: pip-audit .
+
+      - name: bandit (static security analysis)
+        run: bandit -c pyproject.toml -r app
+
+  frontend-audit:
+    name: Frontend dependency audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: pnpm audit
+        # Two advisories are accepted as not applicable and ignored via `auditConfig.ignoreGhsas`
+        # in frontend/pnpm-workspace.yaml (see the comment there for the reasoning on each).
+        run: pnpm audit --audit-level=high
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

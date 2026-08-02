@@ -1,0 +1,55 @@
+site_name: tap — Track All Packs
+site_description: Self-hosted, open-source multi-carrier package tracking platform.
+site_url: https://Peppe37.github.io/tap/
+repo_url: https://github.com/Peppe37/tap
+repo_name: Peppe37/tap
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 Giuseppe Lapietra
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.action.edit
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Architecture: ARCHITECTURE.md
+  - Adding a provider: ADDING_A_PROVIDER.md
+  - Self-hosting: self-hosting.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+
+plugins:
+  - search

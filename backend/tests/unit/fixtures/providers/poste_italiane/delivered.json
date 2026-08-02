@@ -1,0 +1,29 @@
+[
+  {
+    "idTracciatura": "AB123456789IT",
+    "sintesiStato": "Consegnato",
+    "descrizioneErrore": null,
+    "listaMovimenti": [
+      {
+        "dataOra": 1784620200000,
+        "statoLavorazione": "Accettazione",
+        "luogo": "MILANO"
+      },
+      {
+        "dataOra": 1784663400000,
+        "statoLavorazione": "In transito",
+        "luogo": "CMP ROMA"
+      },
+      {
+        "dataOra": 1784706600000,
+        "statoLavorazione": "In consegna",
+        "luogo": "ROMA"
+      },
+      {
+        "dataOra": 1784710200000,
+        "statoLavorazione": "Consegnato",
+        "luogo": "ROMA"
+      }
+    ]
+  }
+]

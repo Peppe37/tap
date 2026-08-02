@@ -1,0 +1,54 @@
+{
+  "code": 0,
+  "data": {
+    "accepted": [
+      {
+        "number": "770123456789",
+        "carrier": 3013,
+        "track_info": {
+          "latest_status": {"status": "Delivered", "sub_status": "Delivered_Signed"},
+          "latest_event": {
+            "time_iso": "2026-07-22T15:40:00+01:00",
+            "description": "Delivered, signed by recipient",
+            "location": "Milano, IT",
+            "stage": "Delivered"
+          },
+          "tracking": {
+            "providers": [
+              {
+                "provider": {"key": 3013, "name": "BRT"},
+                "events": [
+                  {
+                    "time_iso": "2026-07-20T08:00:00+01:00",
+                    "description": "Shipment information received",
+                    "location": "Bologna, IT",
+                    "stage": "InfoReceived"
+                  },
+                  {
+                    "time_iso": "2026-07-20T18:20:00+01:00",
+                    "description": "Departed from origin facility",
+                    "location": "Bologna, IT",
+                    "stage": "InTransit"
+                  },
+                  {
+                    "time_iso": "2026-07-22T09:10:00+01:00",
+                    "description": "Out for delivery",
+                    "location": "Milano, IT",
+                    "stage": "OutForDelivery"
+                  },
+                  {
+                    "time_iso": "2026-07-22T15:40:00+01:00",
+                    "description": "Delivered, signed by recipient",
+                    "location": "Milano, IT",
+                    "stage": "Delivered"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "rejected": []
+  }
+}

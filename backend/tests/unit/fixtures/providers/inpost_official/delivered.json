@@ -1,0 +1,44 @@
+{
+  "tracking_number": "60011234567890123456789012",
+  "service": "inpost_locker_standard",
+  "type": "package",
+  "status": "delivered",
+  "custom_attributes": {
+    "size": "B",
+    "target_machine_id": "KRA01M",
+    "dropoff_machine_id": "WAW02M"
+  },
+  "tracking_details": [
+    {
+      "status": "collected_from_sender",
+      "origin_status": "collected_from_sender",
+      "agency": "InPost",
+      "datetime": "2026-07-20T09:12:00.000+02:00",
+      "location": null
+    },
+    {
+      "status": "adopted_at_sorting_center",
+      "origin_status": "adopted_at_sorting_center",
+      "agency": "InPost",
+      "datetime": "2026-07-20T14:45:00.000+02:00",
+      "location": {"name": "Warszawa Sortownia"}
+    },
+    {
+      "status": "out_for_delivery_to_address",
+      "origin_status": "out_for_delivery_to_address",
+      "agency": "InPost",
+      "datetime": "2026-07-21T07:30:00.000+02:00",
+      "location": {"name": "Krakow"}
+    },
+    {
+      "status": "delivered",
+      "origin_status": "delivered",
+      "agency": "InPost",
+      "datetime": "2026-07-21T11:05:00.000+02:00",
+      "location": {"name": "Krakow, ul. Karmelicka - Paczkomat KRA01M"}
+    }
+  ],
+  "expected_flow": [],
+  "created_at": "2026-07-20T08:00:00.000+02:00",
+  "updated_at": "2026-07-21T11:05:00.000+02:00"
+}

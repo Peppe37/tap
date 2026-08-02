@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/auth/AuthContext";
+import { UpdateBanner } from "@/features/system/UpdateBanner";
 
 const navItemClasses = ({ isActive }: { isActive: boolean }) =>
   `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
@@ -51,7 +52,10 @@ export function AppLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 py-8">
+        <UpdateBanner />
+        {children}
+      </main>
     </div>
   );
 }

@@ -36,6 +36,11 @@ class Settings(BaseSettings):
         default="https://api.17track.net/track/v2.4", alias="TAP_AGGREGATOR_BASE_URL"
     )
 
+    # Baked into the Docker image at build time (see backend/Dockerfile's APP_VERSION build arg);
+    # "dev" for anything built/run outside that pipeline, e.g. local development.
+    app_version: str = Field(default="dev", alias="TAP_APP_VERSION")
+    github_repo: str = Field(default="Peppe37/tap", alias="TAP_GITHUB_REPO")
+
 
 @lru_cache
 def get_settings() -> Settings:

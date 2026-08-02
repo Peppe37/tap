@@ -2,9 +2,14 @@
 
 FROM python:3.12-slim AS base
 
+# Set by the publish workflow to the release tag (e.g. "v0.1.1"); "dev" for anything built
+# outside that pipeline. Exposed at runtime via TAP_APP_VERSION / GET /api/system/update-status.
+ARG APP_VERSION=dev
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    TAP_APP_VERSION=${APP_VERSION}
 
 WORKDIR /app
 

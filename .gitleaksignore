@@ -1,0 +1,9 @@
+# Fingerprints of gitleaks findings reviewed and confirmed to be known-safe, non-production
+# values -- not real leaked credentials. Format: <commit>:<file>:<rule-id>:<line>
+#
+# TAP_CREDENTIAL_ENCRYPTION_KEY below is a throwaway Fernet key used only to run the backend
+# test suite and CI jobs; it is never used against any real database, deployment, or
+# third-party service. See app/core/encryption.py / TAP_CREDENTIAL_ENCRYPTION_KEY in
+# docs/self-hosting.md for what this key is actually for in a real deployment.
+8c8e41ef77c0a93e7111ad4c8427c99e220789d9:.github/workflows/ci.yml:generic-api-key:72
+96024bbe48b297e341de638b6a1c8cf866ddc623:backend/tests/integration/conftest.py:generic-api-key:11

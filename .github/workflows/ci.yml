@@ -69,7 +69,9 @@ jobs:
     env:
       TAP_DATABASE_URL: postgresql+asyncpg://tap:tap@localhost:5432/tap_test
       TAP_JWT_SECRET_KEY: ci-only-secret-not-for-production
-      TAP_CREDENTIAL_ENCRYPTION_KEY: Hp5q9TzHLw7yzbZsL3vdfCFWlLAMt-sj3F8JAzg-SMc=
+      # Throwaway Fernet key generated for this CI job only; never used against any real
+      # database or third-party service.
+      TAP_CREDENTIAL_ENCRYPTION_KEY: Hp5q9TzHLw7yzbZsL3vdfCFWlLAMt-sj3F8JAzg-SMc= # gitleaks:allow
     steps:
       - uses: actions/checkout@v4
 

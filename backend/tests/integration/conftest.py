@@ -7,6 +7,8 @@ from collections.abc import AsyncGenerator
 
 os.environ.setdefault("TAP_DATABASE_URL", "postgresql+asyncpg://tap:tap@localhost:5544/tap_test")
 os.environ.setdefault("TAP_JWT_SECRET_KEY", "test-only-secret-do-not-use-in-production")
+# Throwaway Fernet key for local/CI test runs only; never used against any real database or
+# third-party service (see .gitleaksignore for the historical gitleaks finding on this line).
 os.environ.setdefault(
     "TAP_CREDENTIAL_ENCRYPTION_KEY", "Hp5q9TzHLw7yzbZsL3vdfCFWlLAMt-sj3F8JAzg-SMc="
 )

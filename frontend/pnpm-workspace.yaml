@@ -1,0 +1,17 @@
+allowBuilds:
+  esbuild: true
+
+# Advisories accepted as not applicable to how this app uses the affected package (see
+# docs/self-hosting.md, "Security scanning" section, for the full reasoning behind each one):
+#   - GHSA-qwww-vcr4-c8h2: react-router "RSC Mode" CSRF bypass. Only reachable in React Router's
+#     server-components framework mode; this is a plain client-side Vite SPA that never runs that
+#     mode. The only upstream fix is react-router-dom v8, which requires React 19 -- out of scope
+#     for a vector this app can't hit.
+#   - GHSA-mh99-v99m-4gvg: brace-expansion DoS. Dev-only, pulled in transitively through eslint's
+#     own dependency tree; the vulnerable code path only runs inside lint tooling, never in the
+#     shipped app. Forcing the patched major via an override breaks eslint's minimatch integration
+#     (incompatible API), so it isn't a safe fix either.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-qwww-vcr4-c8h2
+    - GHSA-mh99-v99m-4gvg

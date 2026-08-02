@@ -60,6 +60,14 @@ happened to be typed.
 - Provider credentials are encrypted at rest with a Fernet key (`app/core/encryption.py`,
   `TAP_CREDENTIAL_ENCRYPTION_KEY`). Never log or print a decrypted credential; if you need to
   inspect one for debugging, check length/presence only.
+- `gitleaks` (in `security.yml`) scans full git history on every run, so a known-safe test/CI
+  fixture value (e.g. the fixed `TAP_CREDENTIAL_ENCRYPTION_KEY` used in `ci.yml` and
+  `tests/integration/conftest.py`) gets flagged once per historical commit that touches it, not
+  just once. Suppress each with a fingerprint (`<commit>:<file>:<rule-id>:<line>`) in
+  `.gitleaksignore`, plus an inline `# gitleaks:allow` comment on the line itself where the
+  line-length limit allows it (YAML has no such limit; Python's 100-char `ruff` limit sometimes
+  doesn't). If you edit a line that already has a `.gitleaksignore` entry, the entry's commit hash
+  goes stale — add a new fingerprint for the new commit rather than editing the old one.
 - `.claude/` is gitignored on purpose — it can accumulate session tokens via the permission
   allowlist. Never remove it from `.gitignore`.
 - Double-check `.gitignore` patterns against both `backend/` and `frontend/` before trusting them:

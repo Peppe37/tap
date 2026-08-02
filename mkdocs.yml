@@ -26,6 +26,7 @@ theme:
   features:
     - navigation.instant
     - navigation.tracking
+    - navigation.tabs
     - navigation.top
     - navigation.footer
     - content.code.copy
@@ -34,10 +35,11 @@ theme:
 
 nav:
   - Home: index.md
+  - Self-hosting: self-hosting.md
   - Architecture: ARCHITECTURE.md
   - Adding a provider: ADDING_A_PROVIDER.md
-  - Self-hosting: self-hosting.md
   - Contributing: contributing.md
+  - Changelog: changelog.md
 
 markdown_extensions:
   - admonition
@@ -53,3 +55,6 @@ markdown_extensions:
 
 plugins:
   - search
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true

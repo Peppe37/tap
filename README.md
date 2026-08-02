@@ -1,5 +1,11 @@
 # tap — Track All Parcels
 
+[![CI](https://img.shields.io/github/actions/workflow/status/Peppe37/tap/ci.yml?branch=main&label=CI)](https://github.com/Peppe37/tap/actions/workflows/ci.yml)
+[![Security](https://img.shields.io/github/actions/workflow/status/Peppe37/tap/security.yml?branch=main&label=security)](https://github.com/Peppe37/tap/actions/workflows/security.yml)
+[![Latest release](https://img.shields.io/github/v/release/Peppe37/tap?label=release)](https://github.com/Peppe37/tap/releases/latest)
+[![License](https://img.shields.io/github/license/Peppe37/tap)](LICENSE)
+[![Docs](https://img.shields.io/github/actions/workflow/status/Peppe37/tap/docs.yml?branch=main&label=docs)](https://Peppe37.github.io/tap/)
+
 An open source, self-hosted platform for tracking packages across multiple carriers and
 marketplaces — InPost, Poste Italiane, BRT, GLS, and any carrier covered by a third-party
 aggregator — from one dashboard, on your own infrastructure.

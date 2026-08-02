@@ -232,3 +232,7 @@ coverage/
 
 # MkDocs build output
 site/
+
+# Personal maintainer notes (repo/commit/CI-CD management) -- not published, for the maintainer
+# only.
+.maintainer-notes/

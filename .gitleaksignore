@@ -7,3 +7,4 @@
 # docs/self-hosting.md for what this key is actually for in a real deployment.
 8c8e41ef77c0a93e7111ad4c8427c99e220789d9:.github/workflows/ci.yml:generic-api-key:72
 96024bbe48b297e341de638b6a1c8cf866ddc623:backend/tests/integration/conftest.py:generic-api-key:11
+d7cf663d1c4c780d0b62934542e149387566c7f5:backend/tests/integration/conftest.py:generic-api-key:13

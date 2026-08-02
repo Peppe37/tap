@@ -1,0 +1,43 @@
+# Seed data for the providers table. `code` must match a TrackingProvider.code registered in
+# app/providers/__init__.py. `carriers` populates provider_carrier_support for providers that do
+# not support all carriers; aggregators set supports_all_carriers instead.
+- code: inpost_official
+  display_name: InPost
+  kind: official_api
+  requires_credentials: false
+  supports_all_carriers: false
+  carriers: [inpost]
+- code: poste_it_scraper
+  display_name: Poste Italiane
+  kind: scraper
+  requires_credentials: false
+  supports_all_carriers: false
+  carriers: [poste_it]
+- code: aggregator_17track
+  display_name: 17TRACK
+  kind: aggregator
+  requires_credentials: true
+  supports_all_carriers: true
+  carriers: []
+  setup_guide:
+    intro: >-
+      17TRACK è un servizio aggregatore che copre centinaia di corrieri in tutto il mondo. Serve
+      una tua chiave API personale (piano gratuito disponibile) per usarlo come metodo di
+      tracciamento di riserva quando non esiste un adapter dedicato per il corriere.
+    steps:
+      - title: Crea un account 17TRACK
+        description: Registrati sul sito 17TRACK per ottenere l'accesso alla console API.
+        link: https://www.17track.net/en/register
+      - title: Genera una API key
+        description: >-
+          Dalla console API, genera la tua chiave (17token) personale da usare per le richieste.
+        link: https://api.17track.net/en/doc
+      - title: Inserisci la chiave qui sotto
+        description: >-
+          Salva la chiave: verrà cifrata e usata solo per le tue richieste di tracciamento.
+    fields:
+      - key: api_key
+        label: API Key (17token)
+        type: password
+        required: true
+        help_text: La chiave personale generata dalla console 17TRACK.

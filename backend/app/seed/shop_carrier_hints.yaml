@@ -1,0 +1,49 @@
+# Suggests which carriers a shop commonly ships with, ordered by weight (higher = shown first).
+# Purely a UX hint for the add-tracker wizard; the user can always pick any carrier.
+aliexpress:
+  - {carrier: cainiao, weight: 3}
+  - {carrier: yanwen, weight: 2}
+  - {carrier: 4px, weight: 2}
+  - {carrier: china_post, weight: 1}
+  - {carrier: poste_it, weight: 1}
+amazon:
+  - {carrier: amazon_logistics, weight: 3}
+  - {carrier: poste_it, weight: 2}
+  - {carrier: gls, weight: 1}
+  - {carrier: brt, weight: 1}
+shein:
+  - {carrier: yanwen, weight: 3}
+  - {carrier: 4px, weight: 2}
+  - {carrier: cainiao, weight: 1}
+temu:
+  - {carrier: yanwen, weight: 3}
+  - {carrier: cainiao, weight: 2}
+  - {carrier: 4px, weight: 1}
+ebay:
+  - {carrier: poste_it, weight: 2}
+  - {carrier: gls, weight: 1}
+  - {carrier: dhl, weight: 1}
+vinted:
+  - {carrier: poste_it, weight: 3}
+  - {carrier: inpost, weight: 2}
+  - {carrier: mondial_relay, weight: 2}
+  - {carrier: gls, weight: 1}
+zalando:
+  - {carrier: gls, weight: 2}
+  - {carrier: dhl, weight: 2}
+  - {carrier: nexive, weight: 1}
+  - {carrier: poste_it, weight: 1}
+wish:
+  - {carrier: yanwen, weight: 3}
+  - {carrier: 4px, weight: 2}
+  - {carrier: china_post, weight: 1}
+etsy:
+  - {carrier: poste_it, weight: 2}
+  - {carrier: dhl, weight: 1}
+  - {carrier: ups, weight: 1}
+subito:
+  - {carrier: poste_it, weight: 1}
+  - {carrier: brt, weight: 1}
+manomano:
+  - {carrier: gls, weight: 2}
+  - {carrier: dhl, weight: 1}

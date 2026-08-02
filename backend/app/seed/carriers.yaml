@@ -1,0 +1,65 @@
+# Seed data for the carriers table. `code` is the stable identifier referenced by providers.yaml
+# and shop_carrier_hints.yaml -- never rename an existing code, add a new carrier instead.
+- code: inpost
+  name: InPost
+  country_code: PL
+- code: poste_it
+  name: Poste Italiane
+  country_code: IT
+- code: brt
+  name: BRT (Bartolini)
+  country_code: IT
+- code: gls
+  name: GLS
+  country_code: IT
+- code: sda
+  name: SDA Express Courier
+  country_code: IT
+- code: tnt
+  name: TNT
+  country_code: IT
+- code: dhl
+  name: DHL Express
+  country_code: DE
+- code: ups
+  name: UPS
+  country_code: US
+- code: fedex
+  name: FedEx
+  country_code: US
+- code: amazon_logistics
+  name: Amazon Logistics
+  country_code: US
+- code: cainiao
+  name: Cainiao
+  country_code: CN
+- code: yanwen
+  name: Yanwen Express
+  country_code: CN
+- code: 4px
+  name: 4PX Express
+  country_code: CN
+- code: china_post
+  name: China Post
+  country_code: CN
+- code: nexive
+  name: Nexive (Poste Delivery Business)
+  country_code: IT
+- code: mondial_relay
+  name: Mondial Relay
+  country_code: FR
+- code: colissimo
+  name: Colissimo (La Poste)
+  country_code: FR
+- code: dpd
+  name: DPD
+  country_code: DE
+- code: hermes
+  name: Evri (Hermes)
+  country_code: GB
+- code: correos
+  name: Correos
+  country_code: ES
+- code: postnl
+  name: PostNL
+  country_code: NL

@@ -1,0 +1,25 @@
+# Seed data for the shops table -- purely a UX aid to suggest likely carriers, never enforced.
+- code: aliexpress
+  name: AliExpress
+- code: amazon
+  name: Amazon
+- code: shein
+  name: Shein
+- code: temu
+  name: Temu
+- code: ebay
+  name: eBay
+- code: vinted
+  name: Vinted
+- code: zalando
+  name: Zalando
+- code: wish
+  name: Wish
+- code: etsy
+  name: Etsy
+- code: subito
+  name: Subito.it
+- code: manomano
+  name: ManoMano
+- code: other
+  name: Altro / non specificato

@@ -50,14 +50,35 @@ the containers report healthy.
 everywhere but takes a minute on first run. As an alternative, every release publishes multi-arch
 (amd64/arm64) images to GitHub Container Registry -- `ghcr.io/peppe37/tap-backend` and
 `ghcr.io/peppe37/tap-frontend` -- and pushes to `main` also publish a rolling `edge` tag. Use them
-instead of building by layering `docker-compose.images.yml` on top:
+instead of building by layering `docker-compose.images.yml` on top, which swaps `build:` for
+`image:` on the backend/worker/beat/frontend services without changing anything else (Postgres,
+Redis, volumes, healthchecks stay exactly as in `docker-compose.yml`).
+
+You don't need to clone the whole repository for this -- just the two compose files and `.env`:
 
 ```bash
+mkdir tap && cd tap
+curl -O https://raw.githubusercontent.com/Peppe37/tap/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/Peppe37/tap/main/docker-compose.images.yml
+curl -O https://raw.githubusercontent.com/Peppe37/tap/main/.env.example
+cp .env.example .env  # then fill in the secrets, same as the Quick start above
 docker compose -f docker-compose.yml -f docker-compose.images.yml up -d
 ```
 
 Set `TAP_IMAGE_TAG` in `.env` to pin a specific version (e.g. `v0.2.0`) or track `edge`; it
 defaults to `latest` (the most recent stable release).
+
+### Why two images, not one
+
+The backend image is already reused three ways (API, Celery worker, Celery beat -- same image,
+different command), so it's not duplicated per-service. The frontend is nginx serving a static
+build and reverse-proxying `/api`, a fundamentally different runtime than the Python API. Merging
+the two into a single image would mean running two unrelated processes in one container (nginx +
+uvicorn, via something like supervisord) — it would work, but it means one container whose health
+check can't distinguish "the API died" from "nginx died," logs from both processes interleaved,
+and no way to scale or cache the static frontend independently of the API. Two images, one
+process each, is the more debuggable and more standard shape for this kind of app; that's why we
+kept it even though it means one extra `docker pull`.
 
 ## First run
 

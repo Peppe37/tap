@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest something new for tap -- a feature, a new carrier/provider, an improvement.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve
+      description: What are you trying to do that tap doesn't support today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you want it to work? Rough sketches/mockups are welcome.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - New carrier/provider integration
+        - Existing provider improvement (e.g. more statuses, more accurate tracking)
+        - UI/UX
+        - Notifications
+        - Self-hosting / deployment
+        - Other
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: >-
+        If this is a new carrier or tracking method: see
+        [docs/ADDING_A_PROVIDER.md](https://Peppe37.github.io/tap/ADDING_A_PROVIDER/) --
+        contributions here need a real, verified endpoint (not a guessed one), so mentioning what
+        you've already confirmed about the carrier's API/site helps a lot.

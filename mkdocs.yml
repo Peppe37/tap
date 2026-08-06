@@ -39,6 +39,8 @@ nav:
   - Architecture: ARCHITECTURE.md
   - Adding a provider: ADDING_A_PROVIDER.md
   - Contributing: contributing.md
+  - Security: security.md
+  - Code of conduct: code-of-conduct.md
   - Changelog: changelog.md
 
 markdown_extensions:

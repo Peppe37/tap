@@ -1,0 +1,62 @@
+name: Bug report
+description: Something in tap isn't working as expected.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: input
+    id: carrier-provider
+    attributes:
+      label: Carrier / tracking method (if relevant)
+      description: >-
+        e.g. "InPost via the official adapter" or "Mondial Relay via 17TRACK". If it's a tracking
+        problem, do NOT paste the real tracking number here (this is a public issue tracker) --
+        describe the number's format instead (e.g. "24 digits, starts with 800...").
+      placeholder: e.g. InPost / inpost_official
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: >-
+        `docker compose logs backend` / `worker` output around the time it happened, if you have
+        it. Remove any tracking numbers, emails, or API keys before pasting.
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: tap version
+      description: From Settings, or `docker compose exec backend python -c "from app.core.config import get_settings; print(get_settings().app_version)"`
+      placeholder: e.g. v0.2.0 or "dev" if built locally
+    validations:
+      required: true
+
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: How are you running it
+      options:
+        - Docker Compose (build locally)
+        - Docker Compose (pre-built GHCR images)
+        - Local development (no Docker)
+        - Something else
+    validations:
+      required: true

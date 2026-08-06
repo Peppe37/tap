@@ -1,7 +1,11 @@
 # Contributing
 
 Thanks for considering contributing to tap. This is a self-hosted project maintained by and for
-its users — issues, bug reports, and pull requests are all welcome.
+its users — issues, bug reports, and pull requests are all welcome. Participation is governed by
+the [Code of Conduct](https://github.com/Peppe37/tap/blob/main/CODE_OF_CONDUCT.md); found a
+security issue instead of a regular bug? See
+[SECURITY.md](https://github.com/Peppe37/tap/blob/main/SECURITY.md) rather than opening a public
+issue.
 
 ## Getting set up
 

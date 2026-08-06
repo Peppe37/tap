@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://Peppe37.github.io/tap/
+    about: Self-hosting, architecture, and how to add a carrier/provider.
+  - name: Report a security vulnerability
+    url: https://github.com/Peppe37/tap/security/advisories/new
+    about: Please don't open a public issue for security reports -- see SECURITY.md.

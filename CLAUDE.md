@@ -32,7 +32,13 @@ Concretely:
 - **Respect third-party rate limits.** In particular, 17TRACK (`aggregator_17track`) is a real
   external account with its own quota — do not hammer it with rapid sequential test calls. Prefer
   going through this app's own `/packages/{id}/refresh` endpoint over calling 17TRACK's API
-  directly when verifying behavior by hand.
+  directly when verifying behavior by hand. 17TRACK's actual documented limit (verified against
+  `api.17track.net/en/doc?version=v2.4`) is 3 requests/second and 40 tracking numbers per
+  register/gettrackinfo call; `app/seed/providers.yaml`'s `config.max_requests_per_second` and
+  `app/workers/tasks.py`'s per-second fixed-window check enforce the former, but nothing batches
+  requests up to the 40-per-call limit yet (each `fetch()` call still sends one tracking number)
+  — not urgent at current usage volumes, but worth doing if a self-hoster ends up tracking dozens
+  of packages through 17TRACK at once.
 - **No backwards-compatibility shims, no dead code.** If something is unused, delete it. Don't
   rename instead of removing, don't leave `# removed` comments.
 

@@ -19,6 +19,14 @@
   requires_credentials: true
   supports_all_carriers: true
   carriers: []
+  # Verified against 17TRACK's own API docs (api.17track.net/en/doc?version=v2.4): the
+  # register/gettrackinfo endpoints are capped at 3 requests/second (429 above that) and accept
+  # at most 40 tracking numbers per call. This app currently sends one tracking number per call
+  # (see app/providers/generic_aggregator/provider.py), so the request-count ceiling that matters
+  # in practice is the per-second one, not the 40-per-call batch size.
+  config:
+    max_requests_per_minute: 30
+    max_requests_per_second: 3
   setup_guide:
     intro: >-
       17TRACK è un servizio aggregatore che copre centinaia di corrieri in tutto il mondo. Serve

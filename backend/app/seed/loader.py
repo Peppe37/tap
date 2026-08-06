@@ -96,6 +96,7 @@ async def _seed_providers(session: AsyncSession, carriers: dict[str, Carrier]) -
         provider.requires_credentials = entry["requires_credentials"]
         provider.supports_all_carriers = entry["supports_all_carriers"]
         provider.setup_guide = entry.get("setup_guide")
+        provider.config = entry.get("config", {})
         provider.is_active = True
         await session.flush()
 

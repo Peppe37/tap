@@ -69,15 +69,32 @@ def _redis() -> Redis:
     return Redis.from_url(get_settings().redis_url)
 
 
-def _provider_rate_limit_exceeded(provider_code: str, max_per_minute: int) -> bool:
-    """Fixed-window counter: at most `max_per_minute` fetches per provider per clock minute."""
-    bucket = datetime.now(UTC).strftime("%Y%m%d%H%M")
-    key = f"tap:ratelimit:{provider_code}:{bucket}"
+def _fixed_window_exceeded(key: str, max_requests: int, expire_seconds: int) -> bool:
     redis = _redis()
     count = cast(int, redis.incr(key))
     if count == 1:
-        redis.expire(key, 90)
-    return count > max_per_minute
+        redis.expire(key, expire_seconds)
+    return count > max_requests
+
+
+def _provider_rate_limit_exceeded(
+    provider_code: str, max_per_minute: int, max_per_second: int | None = None
+) -> bool:
+    """Fixed-window counters: at most `max_per_minute` fetches per provider per clock minute, and
+    -- for providers with a documented per-second ceiling (e.g. 17TRACK: 3 req/s, see
+    app/seed/providers.yaml) -- additionally at most `max_per_second` per clock second. The
+    per-minute window alone can't catch a burst that stays under the per-minute total but still
+    blows through a strict per-second limit (e.g. 10 packages dispatched in the same beat tick)."""
+    minute_bucket = datetime.now(UTC).strftime("%Y%m%d%H%M")
+    if _fixed_window_exceeded(f"tap:ratelimit:{provider_code}:{minute_bucket}", max_per_minute, 90):
+        return True
+    if max_per_second is not None:
+        second_bucket = datetime.now(UTC).strftime("%Y%m%d%H%M%S")
+        if _fixed_window_exceeded(
+            f"tap:ratelimit:{provider_code}:sec:{second_bucket}", max_per_second, 2
+        ):
+            return True
+    return False
 
 
 @celery_app.task(name="app.workers.tasks.enqueue_due_packages")  # type: ignore[untyped-decorator]
@@ -127,7 +144,8 @@ async def _check_package_status(package_id: str) -> None:
         max_per_minute = package.provider.config.get(
             "max_requests_per_minute", DEFAULT_MAX_REQUESTS_PER_MINUTE
         )
-        if _provider_rate_limit_exceeded(package.provider.code, max_per_minute):
+        max_per_second = package.provider.config.get("max_requests_per_second")
+        if _provider_rate_limit_exceeded(package.provider.code, max_per_minute, max_per_second):
             raise ProviderRateLimitedError(
                 f"local rate limit reached for provider {package.provider.code!r}"
             )

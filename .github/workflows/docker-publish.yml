@@ -67,3 +67,8 @@ jobs:
             APP_VERSION=${{ github.event.release.tag_name || 'edge' }}
           cache-from: type=gha,scope=${{ matrix.image }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image }}
+          # BuildKit-native attestations stored alongside the image in GHCR (visible under the
+          # package's "Sbom" / provenance tabs) -- what actually went into the image and how it
+          # was built, for anyone auditing a self-hosted deployment's supply chain.
+          sbom: true
+          provenance: true

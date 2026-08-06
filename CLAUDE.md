@@ -108,7 +108,10 @@ flow. Follow [docs/ADDING_A_PROVIDER.md](docs/ADDING_A_PROVIDER.md) step by step
   tags + `latest` on each GitHub Release (triggered by the native `release: published` event
   `@semantic-release/github` fires — not chained off `release.yml` directly). `backend/Dockerfile`
   bakes the release tag into the image (`APP_VERSION` build arg → `TAP_APP_VERSION` env var);
-  anything built outside that pipeline (local dev) defaults to `"dev"`.
+  anything built outside that pipeline (local dev) defaults to `"dev"`. Each image also carries
+  BuildKit-native SBOM + provenance attestations (`sbom: true` / `provenance: true` on
+  `docker/build-push-action`) — visible in GHCR's package view, not GitHub's separate
+  attestations API, so no extra `id-token`/`attestations` permissions are needed for it.
 - `GET /api/system/update-status` (`app/services/update_check.py`) compares that baked-in version
   against the latest GitHub Release, admin-only, cached in Redis for 6h. A `"dev"` version never
   reports an update (it doesn't parse as semver, so there's nothing meaningful to compare) — don't

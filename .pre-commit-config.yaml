@@ -22,6 +22,12 @@ repos:
       - id: ruff-format
         files: ^backend/
 
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+        files: ^scripts/
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v3.4.0
     hooks:

@@ -233,6 +233,9 @@ coverage/
 # MkDocs build output
 site/
 
+# Local database dumps produced by scripts/backup.sh
+/backups/
+
 # Personal maintainer notes (repo/commit/CI-CD management) -- not published, for the maintainer
 # only.
 .maintainer-notes/

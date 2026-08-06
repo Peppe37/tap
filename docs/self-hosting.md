@@ -130,8 +130,21 @@ Migrations run automatically on backend startup; there's no separate migration s
 Everything that matters lives in the `postgres-data` named volume (packages, tracking history,
 users, encrypted credentials) plus the two secrets in `.env`
 (`TAP_JWT_SECRET_KEY`, `TAP_CREDENTIAL_ENCRYPTION_KEY` — without the encryption key, backed-up
-credentials can't be decrypted even if the database is restored). A simple `pg_dump` against the
-`postgres` service, together with a copy of `.env`, is enough to restore an instance elsewhere.
+credentials can't be decrypted even if the database is restored).
+
+`scripts/backup.sh [output-dir]` dumps the database (gzip-compressed, timestamped) and prunes
+dumps older than `TAP_BACKUP_RETENTION_DAYS` (default 14 days). Run it from a cron job or
+systemd timer on the host for actual automation:
+
+```bash
+# crontab -e
+0 3 * * * cd /path/to/tap && ./scripts/backup.sh >> backups/backup.log 2>&1
+```
+
+Back up `.env` alongside the dumps -- it never changes as often, but a dump without the
+encryption key it contains is only half a backup. `scripts/restore.sh <dump-file>` restores one
+(destructive: it drops and recreates the database first, asks for confirmation, and stops
+backend/worker/beat for the duration).
 
 ## Security scanning
 

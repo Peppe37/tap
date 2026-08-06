@@ -13,15 +13,39 @@ os.environ.setdefault(
     "TAP_CREDENTIAL_ENCRYPTION_KEY", "Hp5q9TzHLw7yzbZsL3vdfCFWlLAMt-sj3F8JAzg-SMc="
 )
 
+import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 
 from app.api.deps import get_db
+from app.core import rate_limit
 from app.core.config import get_settings
 from app.db.base import Base
 from app.main import app
 from app.seed.loader import seed
+
+
+class _FakeRateLimitRedis:
+    """No real Redis is available in the test environment; every integration test that exercises
+    the API goes through RateLimitMiddleware, so this needs to be patched in unconditionally
+    rather than opt-in per test."""
+
+    def __init__(self) -> None:
+        self._counts: dict[str, int] = {}
+
+    def incr(self, key: str) -> int:
+        self._counts[key] = self._counts.get(key, 0) + 1
+        return self._counts[key]
+
+    def expire(self, key: str, seconds: int) -> None:
+        pass
+
+
+@pytest.fixture(autouse=True)
+def _fake_rate_limit_redis(monkeypatch: pytest.MonkeyPatch) -> None:
+    fake = _FakeRateLimitRedis()
+    monkeypatch.setattr(rate_limit, "_redis", lambda: fake)
 
 
 @pytest_asyncio.fixture(scope="session")

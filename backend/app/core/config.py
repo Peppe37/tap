@@ -41,6 +41,11 @@ class Settings(BaseSettings):
     app_version: str = Field(default="dev", alias="TAP_APP_VERSION")
     github_repo: str = Field(default="Peppe37/tap", alias="TAP_GITHUB_REPO")
 
+    # Per caller (authenticated user, or client IP for unauthenticated requests) across the whole
+    # API -- independent from the per-provider limiter in app/workers/tasks.py, which protects
+    # third-party providers rather than tap's own API.
+    rate_limit_per_minute: int = Field(default=120, alias="TAP_RATE_LIMIT_PER_MINUTE")
+
 
 @lru_cache
 def get_settings() -> Settings:

@@ -107,8 +107,15 @@ celery -A app.core.celery_app:celery_app beat --loglevel=info --schedule=/tmp/ce
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Adding a new carrier or tracking method? Start with
-[docs/ADDING_A_PROVIDER.md](docs/ADDING_A_PROVIDER.md).
+[docs/ADDING_A_PROVIDER.md](docs/ADDING_A_PROVIDER.md). Participation is governed by the
+[Code of Conduct](CODE_OF_CONDUCT.md); found a security issue? See [SECURITY.md](SECURITY.md)
+rather than opening a public issue.
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+---
+
+If tap is useful to you, a [GitHub star](https://github.com/Peppe37/tap) or a
+[sponsorship](https://github.com/sponsors/Peppe37) helps others find it.

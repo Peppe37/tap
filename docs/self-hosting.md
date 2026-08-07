@@ -114,7 +114,20 @@ All of these live in `.env` at the repo root, read by `docker-compose.yml`:
 | `TAP_JWT_SECRET_KEY` | Signs access/refresh tokens. Rotating it invalidates every existing session. |
 | `TAP_CREDENTIAL_ENCRYPTION_KEY` | Fernet key encrypting stored provider credentials. |
 | `TAP_CORS_ORIGINS` | JSON array of allowed origins for the API (only matters if you serve the frontend from a different origin than the default nginx proxy). |
+| `TAP_RATE_LIMIT_PER_MINUTE` | Requests/minute allowed per caller (authenticated user, or client IP when unauthenticated) across the whole API. Default 120; raise it if a household of heavy users trips it during normal use. |
 | `VITE_API_BASE_URL` | Base path the frontend calls; left as `/api` unless you split frontend/backend across origins. |
+
+## Health and monitoring
+
+- `GET /api/health` -- plain liveness: "is the process running." Always `200 {"status": "ok"}`
+  if it responds at all.
+- `GET /api/health/ready` -- readiness: actually checks the database and Redis connections,
+  `503` if either is down. This is what `docker-compose.yml`'s backend healthcheck uses (so
+  `depends_on: condition: service_healthy` for worker/beat/frontend means "backend can really
+  serve requests," not just "the process started"); point an external uptime checker or reverse
+  proxy health check at this one, not the plain liveness endpoint.
+- Admins also get an update-available notice in the UI itself (`GET /api/system/update-status`),
+  checked against GitHub Releases and cached for 6h -- no separate setup needed.
 
 ## Updating
 
@@ -146,15 +159,20 @@ encryption key it contains is only half a backup. `scripts/restore.sh <dump-file
 (destructive: it drops and recreates the database first, asks for confirmation, and stops
 backend/worker/beat for the duration).
 
-## Security scanning
+## Security
 
-Every push and pull request runs three separate GitHub Actions workflows on top of linting and
-tests: `security.yml` (`pip-audit` and `bandit` for the backend, `pnpm audit` for the frontend,
-a `gitleaks` secret scan across the whole repository), `codeql.yml` (static analysis for Python
-and JavaScript/TypeScript), and dependency updates flow through the same `pnpm audit` /
-`pip-audit` gate before merge. Two frontend advisories are currently accepted as not applicable
-rather than fixed — see the comment above `auditConfig` in `frontend/pnpm-workspace.yaml` for the
-reasoning behind each one.
+Every push and pull request runs, on top of linting and tests: `security.yml` (`pip-audit` and
+`bandit` for the backend, `pnpm audit` for the frontend, a `gitleaks` secret scan across the whole
+repository) and `codeql.yml` (static analysis for Python and JavaScript/TypeScript). Two frontend
+advisories are currently accepted as not applicable rather than fixed — see the comment above
+`auditConfig` in `frontend/pnpm-workspace.yaml` for the reasoning behind each one.
+
+Dependabot opens weekly PRs for outdated pip/npm/Docker-base-image/GitHub Actions dependencies
+(grouped per ecosystem, so it's one PR to review, not ten), and every published Docker image
+carries SBOM and provenance attestations (visible in GHCR's package view) so you can audit what
+went into a given `ghcr.io/peppe37/tap-*` tag.
+
+Found an actual vulnerability? See [SECURITY.md](security.md) rather than opening a public issue.
 
 ## Local development
 

@@ -4,6 +4,11 @@ An open source, self-hosted platform for tracking packages across multiple carri
 marketplaces — InPost, Poste Italiane, BRT, GLS, and any carrier covered by a third-party
 aggregator — from one dashboard, on your own infrastructure.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/screenshots/package-list-dark.png">
+  <img src="assets/screenshots/package-list-light.png" alt="tap package list, showing three tracked parcels with different carriers and statuses" width="800">
+</picture>
+
 ## Why
 
 Every carrier has its own tracking page, its own quirks, and its own coverage gaps. tap gives you

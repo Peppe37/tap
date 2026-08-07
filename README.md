@@ -12,6 +12,11 @@ aggregator — from one dashboard, on your own infrastructure.
 
 Full documentation: <https://Peppe37.github.io/tap/>.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/screenshots/package-list-dark.png">
+  <img src="docs/assets/screenshots/package-list-light.png" alt="tap package list, showing three tracked parcels with different carriers and statuses" width="800">
+</picture>
+
 ## Why
 
 Every carrier has its own tracking page, its own quirks, and its own coverage gaps. tap gives you
